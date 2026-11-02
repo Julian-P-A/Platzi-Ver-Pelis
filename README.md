@@ -108,29 +108,3 @@ mysql -h TU_HOST -u TU_USUARIO -p ver_pelis_plus < src/main/resources/data.sql
 
 Hibernate valida la tabla existente sin borrar los datos.
 
-## Pruebas y compilación
-
-Las pruebas de endpoints, mapeo y saludo local no requieren MySQL ni una clave de IA:
-
-```sh
-./mvnw test
-./mvnw package
-```
-
-Para comprobar además la integración real con MySQL, crea una base independiente
-`ver_pelis_plus_test` y concede acceso a un usuario de pruebas. Configura las
-variables `TEST_DB_URL`, `TEST_DB_USERNAME` y `TEST_DB_PASSWORD` y ejecuta:
-
-```sh
-./mvnw -Dtest=MySqlIntegrationIT test
-```
-
-Esta prueba crea/verifica el esquema, carga los datos iniciales y comprueba
-persistencia y endpoints. Cada prueba revierte sus cambios mediante una transacción.
-GitHub Actions también ejecuta esta integración con un MySQL temporal.
-
-## Subir a GitHub
-
-Sube esta carpeta como repositorio independiente. Incluye código, scripts SQL,
-Maven Wrapper, `.env.example`, `compose.yaml`, pruebas y `.github/`.
-`.gitignore` excluye `.env`, `target/`, logs y archivos del IDE.
